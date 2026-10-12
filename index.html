@@ -105,7 +105,7 @@ footer{margin-top:26px;border-top:1px solid var(--line);padding-top:12px;font-si
 </div>
 
 <footer>
-  <b>Evidence level: calculated.</b> Evo 2 7B (StripedHyena 2), one forward pass per sequence, bfloat16, full-vocabulary softmax. Repeat scoring was bit-identical on this machine (15 Sep, 1,000 bp). Each value at a position is predicted from the bases before it only; the first base has none. Evo 2 computes the whole window at once in 16-bit floating point, so any change nudges every value slightly, even before the edit (measured 15 Sep: about 0.015 bits per base on average, occasionally up to 0.5). After each edit the page reports that floor. The lens only changes what you see; Evo 2 always reads the whole window. Sequence: <code>ECOLAC</code> from the evo2 package's test prompts. Reading frames are found by a standard-code scan on this page; gene names are not asserted. Every scored sequence is logged in <code>data/loops/01-one-base/runs.jsonl</code>.
+  <b>Evidence level: calculated.</b> Evo 2 7B (StripedHyena 2), one forward pass per sequence, bfloat16, full-vocabulary softmax. Repeat scoring was bit-identical on this machine (15 Sep, 1,000 bp). Each value at a position is predicted from the bases before it only; the first base has none. Evo 2 computes the whole window at once in 16-bit floating point, so any change nudges every value slightly, even before the edit (measured 15 Sep: about 0.015 bits per base on average, occasionally up to 0.5). After each edit the page reports that floor. The lens only changes what you see; Evo 2 always reads the whole window. Sequence: <code>ECOLAC</code> from the evo2 package's test prompts. Reading frames are found by a standard-code scan on this page; gene names are not asserted. Every scored sequence is logged in <code>data/runs.jsonl</code>.
 </footer>
 </main>
 
@@ -362,7 +362,7 @@ $('#keep').addEventListener('click', () => { if (!S.B) return; ev('keep'); S.cle
 $('#clear').addEventListener('click', () => { ev('clear'); S.B = null; S.Bseq = ''; S.edit = null; $('#keep').disabled = $('#clear').disabled = true; $('#bsum').textContent = ''; refresh(); });
 $('#quit').addEventListener('click', async () => { ev('quit'); try { await api('/quit', {}); } catch (e) {} const s = $('#status'); s.className = 'error'; s.textContent = 'Evo 2 stopped and the GPU is free. Relaunch to play again.'; $('#rescore').disabled = true; });
 
-try { const g = $('#guess'); g.value = localStorage.getItem('palimpsest.loop01.guess') || ''; let gt = 0; g.addEventListener('input', () => { try { localStorage.setItem('palimpsest.loop01.guess', g.value); } catch (e) {} clearTimeout(gt); gt = setTimeout(() => ev('guess', { chars: g.value.length }), 1200); }); } catch (e) {}
+try { const g = $('#guess'); g.value = localStorage.getItem('onebase.evo2.guess') || ''; let gt = 0; g.addEventListener('input', () => { try { localStorage.setItem('onebase.evo2.guess', g.value); } catch (e) {} clearTimeout(gt); gt = setTimeout(() => ev('guess', { chars: g.value.length }), 1200); }); } catch (e) {}
 
 async function poll() {
   const s = $('#status');
